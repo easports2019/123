@@ -1,0 +1,35 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = null;
+}
+
+@* the fun starts here *@
+
+@Umbraco.Field("placename", encoding: RenderFieldEncodingType.Html)
+
+
+@{
+	var selection = Model.Content.Site().Children("owner")
+						.Where(x => x.IsVisible());
+}
+<ul>
+	@foreach(var item in selection){
+		<li>
+			<a href="@item.Url">@item.Name</a>
+		</li>
+	}
+</ul>
+
+@Umbraco.Field("ownername", encoding: RenderFieldEncodingType.Html)
+
+@{
+	var selection = Model.Content.Site().FirstChild("country").Children("place")
+						.Where(x => x.IsVisible());
+}
+<ul>
+	@foreach(var item in selection){
+		<li>
+			<a href="@item.Url">@item.Name</a>
+		</li>
+	}
+</ul>
